@@ -1,0 +1,30 @@
+{
+  "name": "pi-plugin-benchmark",
+  "version": "0.1.0",
+  "description": "Measure pi startup cost per package: sandboxed cold/warm extension-loading benchmarks as a pi skill.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-coding-agent",
+    "benchmark",
+    "startup",
+    "jiti",
+    "extensions",
+    "performance"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yisus423/pi-plugin-benchmark.git"
+  },
+  "files": [
+    "skills/",
+    "README.md"
+  ],
+  "pi": {
+    "skills": [
+      "./skills"
+    ]
+  }
+}
