@@ -1,11 +1,12 @@
 # pi-plugin-benchmark
 
 Measure how much each pi package (extension/plugin) costs at startup — with a
-sandboxed agent dir, so your real install is never touched.
+sandboxed agent dir, so your real install is never touched — and pre-compile
+packages with the verified esbuild recipe when the cost is jiti-dominated.
 
-A [pi skill](https://pi.dev) with a runner script. Works for any pi user on any
-hardware; built and verified on a 2-core / 1.8 GB Linux machine where the cost
-of plugin loading is hardest to hide.
+Two [pi skills](https://pi.dev) with a runner script. Works for any pi user on
+any hardware; built and verified on a 2-core / 1.8 GB Linux machine where the
+cost of plugin loading is hardest to hide.
 
 ## Why
 
@@ -52,14 +53,14 @@ Design rules:
 ### Install
 
 ```bash
-# as a pi package (installs the skill)
+# as a pi package (installs both skills)
 pi install git:Yisus423/pi-plugin-benchmark
 
-# or copy the skill manually
-cp -r skills/pi-plugin-benchmark ~/.pi/agent/skills/
+# or copy the skills manually
+cp -r skills/* ~/.pi/agent/skills/
 ```
 
-### Run
+### Measure (`pi-plugin-benchmark`)
 
 ```bash
 scripts/bench.sh                      # every installed package, warm
@@ -67,6 +68,13 @@ scripts/bench.sh pi-mcp-adapter       # one package
 scripts/bench.sh --cold gentle-pi     # cold (first-load) comparison
 scripts/bench.sh --runs 4 gentle-pi   # more warm runs for stability
 ```
+
+### Compile (`pi-plugin-compile`)
+
+When a package's cold start is jiti-dominated, apply the verified esbuild
+recipe by hand — the skill documents the exact steps, the externals rule, and
+the two verified failure modes (nested bundle output invisible to discovery;
+content-scan false positives). See `skills/pi-plugin-compile/SKILL.md`.
 
 ### Read
 
